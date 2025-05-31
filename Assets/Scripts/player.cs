@@ -7,6 +7,8 @@ public class player : MonoBehaviour
     public float Speed;
     public float JumpForce;
     private Rigidbody2D rig;
+    public bool isJumping;
+    public bool doubleJump;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -26,7 +28,7 @@ public class player : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isJumping)
         {
             rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
         }
@@ -35,14 +37,14 @@ public class player : MonoBehaviour
     {
         if (collision.gameObject.layer==6)
         {
-            
+            isJumping= false
         }
     }
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer==6)
         {
-            
+            isJumping=true
         }
     }
 }
